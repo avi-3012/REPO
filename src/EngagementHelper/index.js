@@ -1,19 +1,35 @@
 const engagementHelper = {
   engagementMessageOverTimeChartOptions: function (messageCountList, channels) {
-    const generalChannelId = "825030076239577109";
+    //filter channels having messages on multiple dates
+    const channelsWithMultipleDates = channels.filter((channel) => {
+      const dates = messageCountList
+        .filter((data) => data.channelId === channel.id)
+        .map((data) => data.date);
 
-    const generalChannelMessages = messageCountList.filter(
-      (message) => message.channelId === generalChannelId
-    );
+      return dates.length > 1;
+    });
 
-    const data = generalChannelMessages.map((message) => ({
-      x: new Date(message.timeBucket).getTime(),
-      y: parseInt(message.count),
-    }));
+    var series = [];
+    channelsWithMultipleDates.forEach((element) => {
+      const channelId = element.id;
+      const channelName = element.name;
 
-    const channelName = channels.find(
-      (channel) => channel.value === generalChannelId
-    )?.name;
+      const channelMessages = messageCountList.filter(
+        (message) => message.channelId === channelId
+      );
+
+      const data = channelMessages.map((message) => ({
+        x: new Date(message.timeBucket).getTime(),
+        y: parseInt(message.count),
+      }));
+      series.push({
+        name: channelName,
+        type: "spline",
+        data: data,
+      });
+
+      console.log(data);
+    });
 
     return {
       xAxis: {
@@ -25,13 +41,7 @@ const engagementHelper = {
         tickInterval: 24 * 3600 * 1000,
       },
       //   yAxis: {},
-      series: [
-        {
-          name: channelName,
-          type: "spline",
-          data: data,
-        },
-      ],
+      series: [...series],
     };
   },
 };
