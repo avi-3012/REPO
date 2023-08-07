@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import engagementHelper from "./EngagementHelper";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+import options from "./data.js";
+
+const { messageCountList, channels } = options;
+
+console.log(messageCountList.length, channels.length);
+
+const EngagementMessagesOverTime = () => {
+  const options = engagementHelper.engagementMessageOverTimeChartOptions(
+    messageCountList,
+    channels
   );
-}
 
-export default App;
+  return <HighchartsReact highcharts={Highcharts} options={options} />;
+};
+
+export default EngagementMessagesOverTime;
