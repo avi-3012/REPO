@@ -2,11 +2,9 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import engagementHelper from "./EngagementHelper";
 import DarkUnica from "highcharts/themes/dark-unica";
-import options from "./data.js";
+import data from "./data.js";
 
-const { messageCountList, channels } = options;
-
-console.log(messageCountList.length, channels.length);
+const { messageCountList, channels } = data;
 
 const EngagementMessagesOverTime = () => {
   DarkUnica(Highcharts);

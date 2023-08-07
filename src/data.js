@@ -1,4 +1,4 @@
-const options = {
+const data = {
   messageCountList: [
     {
       count: "1",
@@ -278,4 +278,4 @@ const options = {
   ],
 };
 
-export default options;
+export default data;
