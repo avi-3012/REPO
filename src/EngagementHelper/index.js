@@ -16,21 +16,15 @@ const engagementHelper = {
     )?.name;
 
     return {
-      title: {
-        text: "Discord server statistics",
-      },
       xAxis: {
         type: "datetime",
         title: {
           text: "Date",
         },
-        tickInterval: 2, // one wee
+        // one day
+        tickInterval: 24 * 3600 * 1000,
       },
-      yAxis: {
-        title: {
-          text: "Number of Messages",
-        },
-      },
+      //   yAxis: {},
       series: [
         {
           name: channelName,
